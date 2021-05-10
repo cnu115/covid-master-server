@@ -12,6 +12,11 @@ const app = express();
 
 app.use(cookieParser())
 
+app.get("/hello", (req, res, next) => {
+  console.info("hello call success");
+  res.send("Welcome to covid master");
+});
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin','*');
   res.setHeader(
