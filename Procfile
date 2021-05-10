@@ -1,1 +1,1 @@
-web: pm2 app.js
+web: node app.js
