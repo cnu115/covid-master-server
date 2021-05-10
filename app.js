@@ -40,5 +40,5 @@ app.use('/player', PlayerRouter);
 
 
 app.listen(process.env.PORT || 5000, function(res){
-    console.log('connected successfully port 4000')
+    console.log('connected successfully port 5000')
 });

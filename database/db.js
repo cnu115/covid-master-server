@@ -6,6 +6,8 @@ const url = 'mongodb+srv://cnu115:Cnu@115@cluster0.htln4.mongodb.net/CovidMaster
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).then(res => {
     console.log('db connected successfully');
+}).catch(err => {
+    console.log(err)
 });
 
 //Get the default connection

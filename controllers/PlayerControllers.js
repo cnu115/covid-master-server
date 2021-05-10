@@ -24,7 +24,7 @@ exports.createPlayer = (req, res, next) => {
         StartTime : Date.now(),
         EndTime : null,
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-        userId: req.id
+        userId: req.userId
     })
 
     players.save().then(results => {
@@ -38,7 +38,7 @@ exports.createPlayer = (req, res, next) => {
 }
 
 exports.getPastGames = (req, res, next) => {
-    Players.find({userId: req.id}).find({gameStatus: {$ne: null}}).sort('-createdAt').then(results => {
+    Players.find({userId: req.userId}).find({gameStatus: {$ne: null}}).sort('-createdAt').then(results => {
         res.status(200).json({
             status: "SUCCESS",
             results: results
@@ -51,7 +51,7 @@ exports.getPastGames = (req, res, next) => {
 }
 
 exports.updateGame = (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
     Players.findById(req.body.id).then(game => {
 
         if(!game) {

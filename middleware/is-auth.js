@@ -10,19 +10,28 @@ module.exports = (req, res, next) => {
   }
   const token = authHeader.split(' ')[1];
   // console.log(token)
-  let decodedToken;
-  try {
-    decodedToken = jwt.verify(token, config.secret);
-    // console.log(decodedToken)
-  } catch (err) {
-    err.statusCode = 500;
-    throw err;
+  if(token !== "null"){
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, config.secret);
+      // console.log(decodedToken)
+    } catch (err) {
+      err.statusCode = 500;
+      throw err;
+    }
+    if (!decodedToken) {
+      const error = new Error('Not authenticated.');
+      error.statusCode = 401;
+      throw error;
+    }
+    req.userId = decodedToken.id;
+
+    next();
+
+  }else{
+    return res.status(401).json({
+      status: "FAILED",
+      message: "NOT AUTHENTICATED"
+    })
   }
-  if (!decodedToken) {
-    const error = new Error('Not authenticated.');
-    error.statusCode = 401;
-    throw error;
-  }
-  req.userId = decodedToken.id;
-  next();
 };
